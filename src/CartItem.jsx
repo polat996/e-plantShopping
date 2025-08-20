@@ -6,6 +6,24 @@ import './CartItem.css';
 const CartItem = ({ onContinueShopping }) => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
+  function calculateTotal(cart) {
+      // Initialize a variable total to hold the cumulative sum
+      let total = 0;
+      // Iterate over the cart array using cart.forEach()
+      cart.forEach(item => {
+          // Extract quantity and cost
+          const quantity = item.quantity;
+          const cost = item.cost;
+  
+          // Convert the cost string (e.g., "$10.00") to a number using parseFloat
+          const costValue = parseFloat(cost.substring(1));
+  
+          // Multiply costValue by quantity and add the resulting value 
+          total += costValue * quantity;
+      });
+      return total.toFixed(2);
+  }
+
 
   // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
@@ -62,6 +80,7 @@ const CartItem = ({ onContinueShopping }) => {
     </div>
   );
 };
+
 
 export default CartItem;
 
